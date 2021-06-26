@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/home/data/postgres:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: root
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+  front:
+    image: vuejs/ci
+    ports: 
+      - "9090:9090"
+
+  server:
+    build: ./nginx
+    container_name: nginx
+    network_mode : "host"    
+
